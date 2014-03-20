@@ -1,0 +1,35 @@
+CXXFLAGS =
+
+BINDIR = ../../bin/
+
+OBJSDIR = ../../objs/
+
+OBJS =		Fenger.o Mesher.o
+
+DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
+
+LIBS =
+
+INCS = ../../include
+
+TARGET = Fenger.exe
+
+
+$(TARGET):	$(OBJS)
+	($(CXX) -o $(TARGET) $(OBJS) $(LIBS);mv $(TARGET) $(BINDIR))
+	
+	
+$(filter %.o, $(OBJS)):%.o:%.cpp
+	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) -I$(INCS) $< -o $@)
+	
+
+	
+.PHONY:all patch clean
+
+all:	$(TARGET) patch
+
+patch:
+	$(foreach N,$(OBJS),mv $(N) $(OBJSDIR);)
+
+clean:
+	rm -f $(DSTOBJS) $(BINDIR)$(TARGET)
