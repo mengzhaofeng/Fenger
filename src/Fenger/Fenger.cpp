@@ -15,5 +15,6 @@ int main(void) {
 	puts("Hello World!!!");
 	Mesher mesher;
 	printf("MUM = %d\n", MUM);
+	printf("hello\n");
 	return EXIT_SUCCESS;
 }
