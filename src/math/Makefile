@@ -10,7 +10,8 @@ DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
 
 LIBS =
 
-INCDIR = ../../include
+INCDIR = 	../../include ../../../ThirdParty/boost1_55/include
+
 
 TARGET = Fenger.exe
 

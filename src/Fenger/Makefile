@@ -4,15 +4,15 @@ BINDIR = ../../bin/
 
 OBJSDIR = ../../objs/
 
-OBJS =		Fenger.o Mesher.o
+OBJS =		fresnelintegral.o
 
 DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
 
 LIBS =
 
-INCDIR = ../../include
+INCDIR = 	../../include ../../../ThirdParty/boost1_55/include
 
-TARGET = Fenger.exe
+TARGET = fresnelintegral.a
 
 
 $(TARGET):	$(OBJS)
