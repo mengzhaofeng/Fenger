@@ -1,45 +1,74 @@
+#Option
 CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
 CXXDLLFLAGS = -fPIC -shared
 
+ARFLAGS	= -r
+
+#Module
+MODULENAME	= fresnelintegral
+
+#command
+AR		= ar
+
+
+
+#d
 BINDIR = $(PRODIR)/bin/$(PLATFORM)/
 
-LIBDIR = $(PRODIR)/bin/$(PLATFORM)/
+LIBDIR = $(PRODIR)/lib/$(PLATFORM)/
 
 OBJSDIR = $(PRODIR)/objs/
 
-OBJS =		fresnelintegral.o
-
 DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
+
+INCDIR = 	$(PRODIR)/include $(THIRDPARTYDIR)/boost1_55/include
+
+INCDIRS	= $(foreach N,$(INCDIR), -I$(N))
 
 LIBS =
 
-INCDIR = 	$(PRODIR)/include -I$(THIRDPARTYDIR)/boost1_55/include
+OBJS =		$(MODULENAME).o
 
-STATIC_TARGET = fresnelintegral.a
+
+#TARGET
+ifeq ($(COMPILER),GCC)
+	STATIC_TARGET = $(MODULENAME).a
+else
+	STATIC_TARGET = $(MODULENAME).lib
+endif
 
 ifeq ($(PLATFORM),win32)
-	DLL_TARGET = fresnelintegral.dll
+	DLL_TARGET = $(MODULENAME).dll
 else
-	DLL_TARGET = fresnelintegral.so
+	DLL_TARGET = $(MODULENAME).so
 endif
 
 
+#command
 $(DLL_TARGET):	$(OBJS)
 	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS);mv $(DLL_TARGET) $(BINDIR))
 	
+$(STATIC_TARGET):	$(OBJS)
+	($(AR) $(ARFLAGS) $(STATIC_TARGET) $(OBJS); mv $(STATIC_TARGET) $(LIBDIR))
 	
 $(filter %.o, $(OBJS)):%.o:%.cpp
-	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) -I$(INCDIR) $< -o $@)
+	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) $(INCDIRS) $< -o $@)
 	
 
-	
+
+
+#target
 .PHONY:all patch clean
 
-all:	$(DLL_TARGET) patch
+all:	$(DLL_TARGET) $(STATIC_TARGET) patch
 
 patch:
 	$(foreach N,$(OBJS),mv $(N) $(OBJSDIR);)
 
+
+
+
+#clean
 clean:
-	rm -f $(DSTOBJS) $(BINDIR)$(DLL_TARGET)
+	rm -f $(DSTOBJS) $(BINDIR)$(DLL_TARGET) $(LIBDIR)$(STATIC_TARGET)
