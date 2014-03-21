@@ -1,6 +1,9 @@
 CXXFLAGS =
 
-BINDIR = $(PRODIR)/bin/
+BINDIR = $(PRODIR)/bin/$(PLATFORM)/
+
+LIBDIR = $(PRODIR)/lib/$(PLATFORM)/
+	
 
 OBJSDIR = $(PRODIR)/objs/
 

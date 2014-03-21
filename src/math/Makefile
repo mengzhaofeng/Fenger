@@ -2,7 +2,9 @@ CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
 CXXDLLFLAGS = -fPIC -shared
 
-BINDIR = $(PRODIR)/bin/
+BINDIR = $(PRODIR)/bin/$(PLATFORM)/
+
+LIBDIR = $(PRODIR)/bin/$(PLATFORM)/
 
 OBJSDIR = $(PRODIR)/objs/
 
