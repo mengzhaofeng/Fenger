@@ -1,5 +1,6 @@
 #include "fresnelintegral.h"
-#include <boost/math/constants/constants.hpp>
+#include "MathConstants.h"
+#include <string>
 
 /*!
  * FresnelIntegral默认构造器
@@ -34,7 +35,7 @@ FresnelIntegral::~FresnelIntegral()
  */
 std::complex<double> FresnelIntegral::calculate(const std::complex<double> &p_x)
 {
-    double ls_pi = boost::math::constants::pi<double>();
+    double ls_pi = MATH_PI;
     if(complex_mod(p_x) < 3)    //若模值小于3，则进行泰勒级数展开
     {
         return taylor_expand(p_x);
@@ -53,7 +54,7 @@ std::complex<double> FresnelIntegral::calculate(const std::complex<double> &p_x)
 
 std::complex<double> FresnelIntegral::reverse_calculate(const std::complex<double> &p_x)
 {
-    double ls_pi = boost::math::constants::pi<double>();
+    double ls_pi = MATH_PI;
     if(complex_mod(p_x) >= 3)   //若模值大于3，进行渐进展开
     {
         return progress_expand(p_x);
@@ -79,7 +80,7 @@ std::complex<double> FresnelIntegral::reverse_calculate(const std::complex<doubl
 std::complex<double> FresnelIntegral::calculate()
 {
     //若m_x为初始化，在抛出未初始化异常
-    if(!m_x.is_initialized()) throw std::exception("uninitialized value");
+    if(!m_x.is_initialized()) throw std::string("uninitialized value");
 
     return calculate(m_x.get());
 }
@@ -87,7 +88,7 @@ std::complex<double> FresnelIntegral::calculate()
 std::complex<double> FresnelIntegral::resverse_calculate()
 {
     //若m_x为初始化，在抛出未初始化异常
-    if(!m_x.is_initialized()) throw std::exception("uninitialized value");
+    if(!m_x.is_initialized()) throw std::string("uninitialized value");
 
     return reverse_calculate(m_x.get());
 }
@@ -183,7 +184,7 @@ std::complex<double> FresnelIntegral::progress_expand(const std::complex<double>
 
     ls_fresnel += 1;
 
-    std::complex<double> ls_power_px(p_x * p_x);
+    std::complex<double> ls_power_px = p_x * p_x;
     std::complex<double> ls_power(ls_power_px.imag(), -ls_power_px.real());
     std::complex<double> ls_factor(exp(ls_power.real()) * cos(ls_power.imag()),\
                                    exp(ls_power.real()) * sin(ls_power.imag()));
@@ -203,13 +204,13 @@ std::complex<double> FresnelIntegral::progress_expand(const std::complex<double>
  */
 std::complex<double> FresnelIntegral::progress_general_item(const std::complex<double> &p_x, size_t p_n)
 {
-    BOOST_ASSERT(p_n >= 1);
+    //BOOST_ASSERT(p_n >= 1);
 
-    std::complex<double> ls_tmp(p_x * p_x);
+    std::complex<double> ls_tmp = p_x * p_x;
     ls_tmp *= 2;
 
     std::complex<double> ls_deno_factor(-ls_tmp.imag(), ls_tmp.real());
-    std::complex<double> ls_denominator(ls_deno_factor);
+    std::complex<double> ls_denominator(ls_deno_factor.imag(), ls_deno_factor.real());
 
     for(size_t i=1; i<p_n; i++) ls_denominator *= ls_deno_factor;
 
@@ -274,7 +275,7 @@ double FresnelIntegral::complex_mod(const std::complex<double> &p_x)
 boost::optional<double> FresnelIntegral::complex_phase(const std::complex<double> &p_x)
 {
     typedef boost::optional<double> opt_type;
-    double ls_pi = boost::math::constants::pi<double>();
+    double ls_pi = MATH_PI;
 
     // 未定义
     if(p_x.real() == 0.0 && p_x.imag() == 0.0)

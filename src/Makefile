@@ -1,5 +1,6 @@
-#CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
-export CXXFLAGS_GLOBAL
+export PRODIR = ../..
+
+export THIRDPARTYDIR = E:/workspace/ThirdParty
 
 BINDIR = ../bin/
 
@@ -11,12 +12,20 @@ LIBS =
 
 TARGET = 
 	
-.PHONY:		all	Fenger 
+.PHONY:		all	Fenger math clean cleanFenger cleanmath
 
-all:	Fenger
+all:	Fenger math
 
 Fenger:	
 	(cd ./Fenger; make all)
 
-clean:
+math:
+	(cd ./math; make all)
+
+clean:	cleanFenger cleanmath
+
+cleanFenger:
 	(cd ./Fenger; make clean)
+	
+cleanmath:
+	(cd ./math; make clean)

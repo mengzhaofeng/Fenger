@@ -1,18 +1,24 @@
 CXXFLAGS =
 
-BINDIR = ../../bin/
+BINDIR = $(PRODIR)/bin/
 
-OBJSDIR = ../../objs/
+OBJSDIR = $(PRODIR)/objs/
 
-OBJS =		fresnelintegral.o
+OBJS =		Fenger.o Mesher.o
 
 DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
 
 LIBS =
 
-INCDIR = 	../../include ../../../ThirdParty/boost1_55/include
+INCDIR = 	$(PRODIR)/include -I$(THIRDPARTYDIR)/boost1_55/include
 
-TARGET = fresnelintegral.a
+
+
+ifeq ($(PLATFORM),win32)
+	TARGET = Fenger.exe
+else
+	TARGET = Fenger
+endif
 
 
 $(TARGET):	$(OBJS)

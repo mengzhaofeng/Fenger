@@ -1,23 +1,30 @@
 CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
-BINDIR = ../../bin/
+CXXDLLFLAGS = -fPIC -shared
 
-OBJSDIR = ../../objs/
+BINDIR = $(PRODIR)/bin/
 
-OBJS =		Fenger.o Mesher.o
+OBJSDIR = $(PRODIR)/objs/
+
+OBJS =		fresnelintegral.o
 
 DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
 
 LIBS =
 
-INCDIR = 	../../include ../../../ThirdParty/boost1_55/include
+INCDIR = 	$(PRODIR)/include -I$(THIRDPARTYDIR)/boost1_55/include
+
+STATIC_TARGET = fresnelintegral.a
+
+ifeq ($(PLATFORM),win32)
+	DLL_TARGET = fresnelintegral.dll
+else
+	DLL_TARGET = fresnelintegral.so
+endif
 
 
-TARGET = Fenger.exe
-
-
-$(TARGET):	$(OBJS)
-	($(CXX) -o $(TARGET) $(OBJS) $(LIBS);mv $(TARGET) $(BINDIR))
+$(DLL_TARGET):	$(OBJS)
+	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS);mv $(DLL_TARGET) $(BINDIR))
 	
 	
 $(filter %.o, $(OBJS)):%.o:%.cpp
@@ -27,10 +34,10 @@ $(filter %.o, $(OBJS)):%.o:%.cpp
 	
 .PHONY:all patch clean
 
-all:	$(TARGET) patch
+all:	$(DLL_TARGET) patch
 
 patch:
 	$(foreach N,$(OBJS),mv $(N) $(OBJSDIR);)
 
 clean:
-	rm -f $(DSTOBJS) $(BINDIR)$(TARGET)
+	rm -f $(DSTOBJS) $(BINDIR)$(DLL_TARGET)

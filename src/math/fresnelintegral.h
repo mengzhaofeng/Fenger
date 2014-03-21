@@ -45,9 +45,10 @@
  */
 
 
+#include <boost/optional.hpp>
 #include <complex>
 #include <exception>
-#include <boost/optional/optional.hpp>
+
 
 #define PRECISION   0.00000001        //¼ÆËã¾«¶È
 

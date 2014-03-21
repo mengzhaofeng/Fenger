@@ -24,4 +24,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>include/boost</name>
+			<type>2</type>
+			<location>D:/workspace/gelib/vslib/Boost_1.52/include/boost</location>
+		</link>
+	</linkedResources>
 </projectDescription>
