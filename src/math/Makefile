@@ -10,7 +10,7 @@ DSTOBJS = $(foreach N,$(OBJS),$(OBJSDIR)$(N))
 
 LIBS =
 
-INCS = ../../include
+INCDIR = ../../include
 
 TARGET = Fenger.exe
 
@@ -20,7 +20,7 @@ $(TARGET):	$(OBJS)
 	
 	
 $(filter %.o, $(OBJS)):%.o:%.cpp
-	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) -I$(INCS) $< -o $@)
+	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) -I$(INCDIR) $< -o $@)
 	
 
 	

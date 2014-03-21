@@ -8,13 +8,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Mesher.h"
-#include "config.h"
+
 
 int main(void) {
 	puts("Hello World!!!");
-	Mesher mesher;
-	printf("MUM = %d\n", MUM);
-	printf("hello\n");
+
 	return EXIT_SUCCESS;
 }
