@@ -45,23 +45,31 @@ else
 endif
 
 
+ifeq ($(BUILD_OPT),DLL)
+	TARGET = $(DLL_TARGET)
+else
+	TARGET = $(STATIC_TARGET)
+endif
+
 #command
 $(DLL_TARGET):	$(OBJS)
-	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS);mv $(DLL_TARGET) $(BINDIR))
+	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS) -Wl --out-implib $(DLL_TARGET).a;mv $(DLL_TARGET) $(BINDIR))
 	
 $(STATIC_TARGET):	$(OBJS)
 	($(AR) $(ARFLAGS) $(STATIC_TARGET) $(OBJS); mv $(STATIC_TARGET) $(LIBDIR))
 	
 $(filter %.o, $(OBJS)):%.o:%.cpp
-	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) $(INCDIRS) $< -o $@)
+	($(CXX) -c $(PREDEFINES) $(CXXFLAGS_GLOBAL) $(CXXFLAGS) $(INCDIRS) $< -o $@)
 	
+
 
 
 
 #target
 .PHONY:all patch clean
 
-all:	$(DLL_TARGET) $(STATIC_TARGET) patch
+
+all:	$(TARGET) patch
 
 patch:
 	$(foreach N,$(OBJS),mv $(N) $(OBJSDIR);)

@@ -2,6 +2,12 @@ export PRODIR = ../..
 
 export THIRDPARTYDIR = F:/workspace/ThirdParty
 
+export BUILD_OPT = STATIC
+
+export PREDEFINE = BUILD_FENGER_$(BUILD_OPT)
+
+export PREDEFINES = $(foreach N,$(PREDEFINE),-D$(N))
+
 BINDIR = ../bin/
 
 OBJSDIR = ../objs/

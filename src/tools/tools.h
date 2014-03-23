@@ -7,8 +7,9 @@
 
 #ifndef TOOLS_H_
 #define TOOLS_H_
+#include "config.h"
 
-class tools {
+class FENGER_DLL tools {
 public:
 	tools();
 	virtual ~tools();
