@@ -5,6 +5,10 @@ CXXDLLFLAGS = -fPIC -shared
 
 ARFLAGS	= -r
 
+export PREDEFINE = BUILD_FENGER_$(BUILD_OPT)
+
+export PREDEFINES = $(foreach N,$(PREDEFINE),-D$(N))
+
 #Module
 MODULENAME	= tools
 
@@ -53,7 +57,9 @@ endif
 
 #command
 $(DLL_TARGET):	$(OBJS)
-	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS) -Wl --out-implib $(DLL_TARGET).a;mv $(DLL_TARGET) $(BINDIR))
+	($(CXX) -o  $(DLL_TARGET) $(CXXDLLFLAGS) $(OBJS) $(LIBS) -Wl,--out-implib,lib$(DLL_TARGET).a;\
+	mv $(DLL_TARGET) $(BINDIR);\
+	mv lib$(DLL_TARGET).a $(LIBDIR))
 	
 $(STATIC_TARGET):	$(OBJS)
 	($(AR) $(ARFLAGS) $(STATIC_TARGET) $(OBJS); mv $(STATIC_TARGET) $(LIBDIR))
@@ -79,4 +85,7 @@ patch:
 
 #clean
 clean:
-	rm -f $(DSTOBJS) $(BINDIR)$(DLL_TARGET) $(LIBDIR)$(STATIC_TARGET)
+	rm -f $(DSTOBJS) \
+	$(BINDIR)$(DLL_TARGET) \
+	$(LIBDIR)$(STATIC_TARGET) \
+	$(LIBDIR)lib$(DLL_TARGET).a

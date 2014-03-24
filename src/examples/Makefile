@@ -4,6 +4,14 @@ CXXFLAGS =
 #module
 MODULENAME	=	examples
 
+PREDEFINE = 
+
+ifeq ($(BUILD_OPT),STATIC)
+	PREDEFINE += BUILD_FENGER_$(BUILD_OPT)
+endif
+
+export PREDEFINES = $(foreach N,$(PREDEFINE),-D$(N))
+
 OBJS =		$(MODULENAME).o 
 
 
@@ -44,7 +52,7 @@ $(TARGET):	$(OBJS)
 	
 	
 $(filter %.o, $(OBJS)):%.o:%.cpp
-	($(CXX) -c $(CXXFLAGS_GLOBAL) $(CXXFLAGS) $(INCDIRS) $< -o $@)
+	($(CXX) -c $(PREDEFINES) $(CXXFLAGS_GLOBAL) $(CXXFLAGS) $(INCDIRS) $< -o $@)
 	
 
 

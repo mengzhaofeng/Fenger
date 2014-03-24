@@ -1,12 +1,8 @@
 export PRODIR = ../..
 
-export THIRDPARTYDIR = F:/workspace/ThirdParty
+export THIRDPARTYDIR = E:/workspace/ThirdParty
 
-export BUILD_OPT = STATIC
-
-export PREDEFINE = BUILD_FENGER_$(BUILD_OPT)
-
-export PREDEFINES = $(foreach N,$(PREDEFINE),-D$(N))
+#export BUILD_OPT = DLL
 
 BINDIR = ../bin/
 

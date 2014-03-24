@@ -48,6 +48,7 @@
 #include <boost/optional.hpp>
 #include <complex>
 #include <exception>
+#include "config.h"
 
 
 #define PRECISION   0.00000001        //计算精度
@@ -61,7 +62,7 @@
  * 汪茂光，复宗量菲涅尔积分的计算及其性质，电子科学学刊,
  * 1994-11（615-621）】，计算精度可达0.00000001。
  */
-class FresnelIntegral
+class FENGER_DLL FresnelIntegral
 {
 public:
     //! default constructor.

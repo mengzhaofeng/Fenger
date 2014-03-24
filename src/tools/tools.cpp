@@ -10,7 +10,7 @@
 
 tools::tools() {
 	// TODO Auto-generated constructor stub
-	printf("tools\n");
+	printf("tools, hello world\n");
 }
 
 tools::~tools() {
