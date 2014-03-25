@@ -63,3 +63,8 @@ patch:
 #clean
 clean:
 	rm -f $(DSTOBJS) $(BINDIR)$(TARGET)
+	
+	
+#install
+install:
+	

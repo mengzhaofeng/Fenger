@@ -12,10 +12,18 @@ OBJS =
 
 LIBS =
 
-ALL_TARGET = all	Fenger math tools examples
+
+
+
+
+
+
+#target
+ALL_TARGET = all	Fenger math tools examples 
 CLEAN_TARGET = clean cleanFenger cleanmath cleantools cleanexamples
+INSTALL_TARGET = install installFenger installmath installtools installexamples
 	
-.PHONY:		 $(ALL_TARGET) $(CLEAN_TARGET)
+.PHONY:		 $(ALL_TARGET) $(CLEAN_TARGET) $(INSTALL_TARGET)
 
 all:	Fenger math tools examples
 
@@ -31,6 +39,13 @@ tools:
 examples:
 	(cd ./examples; make all)
 
+
+
+
+
+
+
+#clean
 clean:	cleanFenger cleanmath cleantools cleanexamples
 
 cleanFenger:
@@ -44,3 +59,25 @@ cleantools:
 	
 cleanexamples:
 	(cd ./examples; make clean)
+
+
+
+
+
+
+
+
+#install
+install:	installFenger installmath installtools installexamples
+	
+installFenger:
+	(cd ./Fenger; make install)
+	
+installmath:
+	(cd ./math; make install)
+	
+installtools:
+	(cd ./tools; make install)
+	
+installexamples:
+	(cd ./examples; make install)

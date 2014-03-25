@@ -20,13 +20,15 @@ BINDIR = ./bin/
 
 OBJSDIR = ./objs/
 
+INSDIR = 
+
 OBJS =		
 
 LIBS =
 
 TARGET = Fenger
 	
-.PHONY:		all	src 
+.PHONY:		all	src clean install
 
 all:	src
 
@@ -35,3 +37,6 @@ src:
 
 clean:
 	(cd ./src; make clean)
+	
+install:
+	(cd ./src; make install)

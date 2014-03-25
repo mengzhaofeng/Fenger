@@ -89,3 +89,6 @@ clean:
 	$(BINDIR)$(DLL_TARGET) \
 	$(LIBDIR)$(STATIC_TARGET) \
 	$(LIBDIR)lib$(DLL_TARGET).a
+	
+#install
+install:
