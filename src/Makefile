@@ -19,13 +19,13 @@ LIBS =
 
 
 #target
-ALL_TARGET = all	Fenger math tools examples 
-CLEAN_TARGET = clean cleanFenger cleanmath cleantools cleanexamples
+ALL_TARGET = all	Fenger math tools examples boostware
+CLEAN_TARGET = clean cleanFenger cleanmath cleantools cleanexamples cleanboostware
 INSTALL_TARGET = install installFenger installmath installtools installexamples
 	
 .PHONY:		 $(ALL_TARGET) $(CLEAN_TARGET) $(INSTALL_TARGET)
 
-all:	Fenger math tools examples
+all:	Fenger math tools examples boostware
 
 Fenger:	
 	(cd ./Fenger; make all)
@@ -38,6 +38,9 @@ tools:
 
 examples:
 	(cd ./examples; make all)
+	
+boostware:
+	(cd ./boostware; make all)
 
 
 
@@ -46,7 +49,7 @@ examples:
 
 
 #clean
-clean:	cleanFenger cleanmath cleantools cleanexamples
+clean:	cleanFenger cleanmath cleantools cleanexamples cleanboostware
 
 cleanFenger:
 	(cd ./Fenger; make clean)
@@ -59,6 +62,9 @@ cleantools:
 	
 cleanexamples:
 	(cd ./examples; make clean)
+	
+cleanboostware:
+	(cd ./boostware; make clean)
 
 
 

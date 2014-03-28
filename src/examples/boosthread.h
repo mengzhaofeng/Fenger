@@ -7,7 +7,7 @@
 
 #ifndef BOOSTHREAD_H_
 #define BOOSTHREAD_H_
-#include <boost/thread.hpp>
+//#include <boost/thread.hpp>
 
 class boosthread {
 public:

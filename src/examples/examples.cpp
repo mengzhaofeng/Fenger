@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../tools/tools.h"
-#include <boost/thread.hpp>
+//#include <boost/thread.hpp>
 
 
 
